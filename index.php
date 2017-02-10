@@ -41,12 +41,11 @@
     // Set Config
 
     P4M\Settings::setPublic('OpenIdConnect:ClientId',     '10004');
-    P4M\Settings::setPublic('OpenIdConnect:ClientSecret', 'secrxxet');
+    P4M\Settings::setPublic('OpenIdConnect:ClientSecret', 'secret');
     P4M\Settings::setPublic('OpenIdConnect:RedirectUrl',  'http://localhost:8000/p4m/getP4MAccessToken');
-//    P4M\Settings::setPublic('GFS:ClientId',               'parcel_4_me');
-//    P4M\Settings::setPublic('GFS:ClientSecret',           'needmoreparcels');
-    P4M\Settings::setPublic('GFS:ClientId',               'barry@earsman.com');
-    P4M\Settings::setPublic('GFS:ClientSecret',           'b4rry!!');
+    P4M\Settings::setPublic('GFS:ClientId',               'parcel_4_me');
+    P4M\Settings::setPublic('GFS:ClientSecret',           'needmoreparcels');
+
 
 
 

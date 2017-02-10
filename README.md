@@ -48,7 +48,7 @@ The [P4M Widgets](https://github.com/ParcelForMe/p4m-widgets) need to be include
 ## What is this and what do I do with it ?
 
 
-`index.php` is a "demo" implementation of the parcel4me PHP abstract class, it has a router that handles each of the required P4M endpoints.
+`index.php` is a demo implementation of the parcel4me PHP abstract class, it has a router that handles each of the required P4M endpoints.
 It has no UI (other than what the P4M widgets provide) and only hardcoded sample data.
 
 The purpose of this demo is to provide a sample that can be copied to implement a P4M checkout into an existing PHP based shopping cart.    
