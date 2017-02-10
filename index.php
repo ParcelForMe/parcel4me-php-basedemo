@@ -3,11 +3,16 @@
     // Require composer autoloader
     require_once __DIR__.'/vendor/autoload.php';
 
+
     // Require the P4M Shop Abstract Class
-    require_once __DIR__.'/vendor/krisrandall/parcel4me/src/parcel4me/p4m-shop.php';
+    
+    // I'm sure that this really shouldn't be required 
+    //  but I obviously haven't figured out composer autoloader correctly yet :
+    require_once __DIR__.'/vendor/parcel4me/parcel4me/src/parcel4me/p4m-shop.php';
 
-
+    // likewise I assume this should get handled by autoloader ? :
     require __DIR__.'/vendor/smarty/smarty/libs/Smarty.class.php';
+
 
 
     /*       

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a8d8f5c293b4d87809374b728db90a3",
+    "content-hash": "418cf03a71a2a83228887211e5d641c4",
     "packages": [
         {
             "name": "bramus/router",
@@ -126,17 +126,17 @@
             "time": "2017-01-09T23:50:39+00:00"
         },
         {
-            "name": "krisrandall/parcel4me",
-            "version": "v0.0.3",
+            "name": "parcel4me/parcel4me",
+            "version": "v0.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/krisrandall/parcel4me-php.git",
-                "reference": "6825d2d74d7cd41a5f95cff37b0ea076c941a9a3"
+                "url": "https://github.com/ParcelForMe/parcel4me-php.git",
+                "reference": "1f18d7e52a5736d6cb0c5d22da3aef1df21ed175"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krisrandall/parcel4me-php/zipball/6825d2d74d7cd41a5f95cff37b0ea076c941a9a3",
-                "reference": "6825d2d74d7cd41a5f95cff37b0ea076c941a9a3",
+                "url": "https://api.github.com/repos/ParcelForMe/parcel4me-php/zipball/1f18d7e52a5736d6cb0c5d22da3aef1df21ed175",
+                "reference": "1f18d7e52a5736d6cb0c5d22da3aef1df21ed175",
                 "shasum": ""
             },
             "require": {
@@ -156,11 +156,11 @@
             "authors": [
                 {
                     "name": "krisrandall",
-                    "email": "kris.randall@gmail.com"
+                    "email": "kris@cocreations.com.au"
                 }
             ],
             "description": "A one-click checkout and delivery package for PHP shopping carts",
-            "time": "2017-02-09T00:52:50+00:00"
+            "time": "2017-02-10T01:32:21+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
