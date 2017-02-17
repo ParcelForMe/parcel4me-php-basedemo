@@ -429,7 +429,7 @@
 
             $smarty = new Smarty;
 
-            $smarty->assign('p4mServer',    P4M\Settings::getPublic( 'Server:P4M_API_SERVER' ));
+            $smarty->assign('p4mServer',    P4M\Settings::getPublic( 'Server:P4M_OID_SERVER' ));
 
             $pageHtml = $smarty->fetch(__DIR__.'/view/template/checkoutcomplete.tpl');
             echo $pageHtml;
