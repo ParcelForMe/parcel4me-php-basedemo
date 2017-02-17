@@ -43,15 +43,6 @@
         \_______/|/     \||/       (_______/(_______/|/     \|(_______/|/    )_)   )_(   |/     \|   )_(   \_______/(_______)|/    )_)  
     */
 
-    // Set Config
-
-    P4M\Settings::setPublic('OpenIdConnect:ClientId',     '10004');
-    P4M\Settings::setPublic('OpenIdConnect:ClientSecret', 'secret');
-    P4M\Settings::setPublic('OpenIdConnect:RedirectUrl',  'http://localhost:8000/p4m/getP4MAccessToken');
-    P4M\Settings::setPublic('GFS:ClientId',               'parcel_4_me');
-    P4M\Settings::setPublic('GFS:ClientSecret',           'needmoreparcels');
-
-
 
 
     session_start(); // this is important for the P4M_Shop->getCurrentSessionId() to work !!
@@ -182,24 +173,6 @@
 
             return true;
         }
-        
-
-        function getCheckoutPageHtml( $config ) {
-
-            $smarty = new Smarty;
-
-            $smarty->assign('idSrvUrl',             P4M_OID_SERVER);
-            $smarty->assign('clientId',             P4M\Settings::getPublic('OpenIdConnect:ClientId'));
-            $smarty->assign('redirectUrl',          P4M\Settings::getPublic('OpenIdConnect:RedirectUrl'));
-            
-            $smarty->assign('config', $config);
-     
-           
-            $pageHtml = $smarty->fetch(__DIR__.'/view/template/checkout.tpl');
-
-            return $pageHtml;
-
-        }
 
 
         function updateShipping( $shippingServiceName, $amount, $dueDate ) {
@@ -295,16 +268,29 @@
          }
          
 
-        function localErrorPageUrl($message) {
-            return 'http://' . $_SERVER['HTTP_HOST'] . '/error/' . urlencode($message);
+        function handleError($message) {
+            $error_url = 'http://' . $_SERVER['HTTP_HOST'] . '/error/' . urlencode($message);
+            header("Location: {$error_url}");
+            exit();
         }
 
 
     }
 
 
+    // Set the config
+    $parcel4me_shop_config = array(
+        'environment'                   => 'dev',
+        'p4m_client_id'                 => '10004',
+        'p4m_secret'                    => 'secret',
+        'gfs_client_id'                 => 'parcel_4_me',
+        'gfs_secret'                    => 'needmoreparcels',
+        'redirect_url_checkout'         => '/demo_checkout',
+        'redirect_url_payment_complete' => '/demo_paymentcomplete'
+    );
+
     /// Define the Instance :
-    $my_shopping_cart = new DemoShop();
+    $my_shopping_cart = new DemoShop( $parcel4me_shop_config );
 
 
 
@@ -360,7 +346,7 @@
         $smarty = new Smarty;
 
         $smarty->assign('supportedEndPoints',   $supportedEndPoints);
-        $smarty->assign('idSrvUrl',             P4M_OID_SERVER);
+        $smarty->assign('idSrvUrl',             P4M\Settings::getPublic('Server:P4M_OID_SERVER'));
         $smarty->assign('clientId',             P4M\Settings::getPublic('OpenIdConnect:ClientId'));
         $smarty->assign('redirectUrl',          P4M\Settings::getPublic('OpenIdConnect:RedirectUrl'));
         
@@ -418,6 +404,36 @@
         }
     });
 
+    // and the redirect endpoints for checkout and payment
+    $router->get('/demo_checkout', function() {
+
+            $smarty = new Smarty;
+
+            $smarty->assign('idSrvUrl',         P4M\Settings::getPublic( 'Server:GFS_SERVER' ));
+            $smarty->assign('clientId',         P4M\Settings::getPublic( 'OpenIdConnect:ClientId' ));
+            $smarty->assign('redirectUrl',      P4M\Settings::getPublic( 'OpenIdConnect:RedirectUrl' ));
+            
+            $checkoutConfig = array (
+                'sessionId'           => session_id(),
+                'gfsAccessToken'      => (array_key_exists('gfsCheckoutToken', $_COOKIE) ? $_COOKIE['gfsCheckoutToken'] : ''),
+                'initialAddress'      => (array_key_exists('p4mInitialAddress', $_COOKIE) ? $_COOKIE['p4mInitialAddress'] : ''),
+                'initialPostCode'     => (array_key_exists('p4mDefaultPostCode', $_COOKIE) ? $_COOKIE['p4mDefaultPostCode'] : ''),
+                'initialCountryCode'  => (array_key_exists('p4mDefaultCountryCode', $_COOKIE) ? $_COOKIE['p4mDefaultCountryCode'] : '')
+            );
+            $smarty->assign('config', $checkoutConfig);
+     
+            $pageHtml = $smarty->fetch(__DIR__.'/view/template/checkout.tpl');
+            echo $pageHtml;
+    });
+    $router->get('/demo_paymentcomplete', function() {
+
+            $smarty = new Smarty;
+
+            $smarty->assign('p4mServer',    P4M\Settings::getPublic( 'Server:P4M_API_SERVER' ));
+
+            $pageHtml = $smarty->fetch(__DIR__.'/view/template/checkoutcomplete.tpl');
+            echo $pageHtml;
+    });
 
     // Dynamic route: /error/(message)
     $router->get('/error/(.*)', function ($msg) {
