@@ -19,7 +19,7 @@
             <a href="/">store</a>
         </p>
         <footer>
-            <p>&copy; 2016 - A Simple Shop</p>
+            <p>&copy; 2017 - A Demo Shop</p>
         </footer>
     
     </body>
