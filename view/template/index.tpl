@@ -36,7 +36,7 @@
 
         <h2>p4m-checkout</h2>
         <p>
-            After logging on, checkout the <a href="/p4m/checkout">/p4m/checkout</a>
+            After logging on, checkout the <a href="/parcel4me_checkout">/parcel4me_checkout</a>
         </p>
 
         <br/>

@@ -285,7 +285,7 @@
         'p4m_secret'                    => 'secret',
         'gfs_client_id'                 => 'parcel_4_me',
         'gfs_secret'                    => 'needmoreparcels',
-        'redirect_url_checkout'         => '/demo_checkout',
+        'redirect_url_checkout'         => '/parcel4me_checkout',
         'redirect_url_payment_complete' => '/demo_paymentcomplete'
     );
 
@@ -372,7 +372,6 @@
             case 'isLocallyLoggedIn' :      $my_shopping_cart->isLocallyLoggedIn();         break;                
             case 'localLogin' :             $my_shopping_cart->localLogin();                break;                
             case 'restoreLastCart' :        $my_shopping_cart->restoreLastCart();           break;
-            case 'checkout' :               $my_shopping_cart->checkout();                  break;
             case 'getP4MCart' :             $my_shopping_cart->getP4MCart();                break;
             case 'paypalSetup' :            $my_shopping_cart->paypalSetup();               break;
             case 'paypalCancel' :           $my_shopping_cart->paypalCancel();              break;
@@ -405,7 +404,11 @@
     });
 
     // and the redirect endpoints for checkout and payment
-    $router->get('/demo_checkout', function() {
+    $router->get('/parcel4me_checkout', function() {
+
+            global $my_shopping_cart;
+            
+            $my_shopping_cart->checkout();
 
             $smarty = new Smarty;
 
