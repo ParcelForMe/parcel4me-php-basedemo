@@ -74,6 +74,11 @@
             return $user;
         }
 
+        public function isValidUserId( $localUserId ) {
+            if ($localUserId==1234567) return true;
+            else return false;
+        }
+
         function loginUser( $localUserId ) {
             /*
                 logic to log the user out of the shopping cart 
@@ -267,6 +272,13 @@
              return true;
          }
          
+         public function fetchLocalUserByEmail( $localUserEmailAddress ) {
+            /*
+                some logic to find the local user and return a p4m consumer
+            */
+            return false;
+         }
+
 
         function handleError($message) {
             $error_url = 'http://' . $_SERVER['HTTP_HOST'] . '/error/' . urlencode($message);
