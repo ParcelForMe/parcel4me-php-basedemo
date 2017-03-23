@@ -3,6 +3,6 @@
     "require": {
         "bramus/router":"~1.0",
         "smarty/smarty":"^3.1",
-        "parcel4me/parcel4me": "^0.0.4"
+        "parcel4me/parcel4me": "^0.0.9"
     }
 }
