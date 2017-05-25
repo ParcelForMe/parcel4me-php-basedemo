@@ -113,19 +113,19 @@
 
             
             $p4m_address = new P4M\Model\Address();
-            $p4m_address->AddressType   = 'Address';
-            $p4m_address->Street1       = '21 Pine Street';
-            $p4m_address->State         = 'Qld';
-            $p4m_address->CountryCode   = 'AU';
+            $p4m_address->addressType   = 'Address';
+            $p4m_address->street1       = '21 Pine Street';
+            $p4m_address->state         = 'Qld';
+            $p4m_address->countryCode   = 'AU';
             $p4m_address->removeNullProperties();
 
             // Convert the user from the shopping cart DB into a 
             // P4M Consumer
             $consumer = new P4M\Model\Consumer();
-            $consumer->GivenName  = $user->first;
-            $consumer->FamilyName = $user->last;
-            $consumer->Email      = $user->email;
-            $consumer->Addresses  = array ( $p4m_address ); 
+            $consumer->givenName  = $user->first;
+            $consumer->familyName = $user->last;
+            $consumer->email      = $user->email;
+            $consumer->addresses  = array ( $p4m_address ); 
             $consumer->removeNullProperties();
 
             return $consumer;
@@ -142,18 +142,18 @@
             // P4M Cart
 
             $cartItem = new P4M\Model\CartItem();
-            $cartItem->Desc         = "A great thing I am buying";
-            $cartItem->Qty          = 1;
-            $cartItem->Price        = 100;
-            $cartItem->LinkToImage  = "http://cdn2.wpbeginner.com/wp-content/uploads/2015/12/pixabay.jpg";
+            $cartItem->desc         = "A great thing I am buying";
+            $cartItem->qty          = 1;
+            $cartItem->price        = 100;
+            $cartItem->linkToImage  = "http://cdn2.wpbeginner.com/wp-content/uploads/2015/12/pixabay.jpg";
             $cartItem->removeNullProperties();
 
             $cart = new P4M\Model\Cart();
-            $cart->SessionId    = $this->getCurrentSessionId();
-            $cart->PaymentType  = "DB";
-            $cart->Items        = [ $cartItem ];
-            $cart->Currency     = "USD";
-            $cart->Reference    = "12345"; //.rand(); // This is REQUIRED (and needs to change for subsequent Paypal payments)
+            $cart->sessionId    = $this->getCurrentSessionId();
+            $cart->paymentType  = "DB";
+            $cart->items        = [ $cartItem ];
+            $cart->currency     = "USD";
+            $cart->reference    = "12345"; //.rand(); // This is REQUIRED (and needs to change for subsequent Paypal payments)
             $cart->removeNullProperties();
 
             return $cart;
@@ -180,7 +180,7 @@
         }
 
 
-        function updateShipping( $shippingServiceName, $amount, $dueDate ) {
+        function updateShipping( $shippingServiceName, $amount, $dueDate, $address ) {
             /*
                 some logic goes here to set these shipping amounts and 
                 possibly recalculate the tax on the current shopping cart 
@@ -197,10 +197,10 @@
             */
 
             $r = new stdClass();
-            $r->Tax      = 10.00;
-            $r->Shipping = 20.00;
-            $r->Discount = 5.00;
-            $r->Total    = 112.22;
+            $r->tax      = 10.00;
+            $r->shipping = 20.00;
+            $r->discount = 5.00;
+            $r->total    = 112.22;
 
             return $r;
         }
@@ -219,9 +219,9 @@
                 throw new Exception('Unknown discount code.'); 
             }
 
-            $dis->Code          = $discountCode;
-            $dis->Description   = 'A demo valid coupon code!';
-            $dis->Amount        = 0.01;
+            $dis->code          = $discountCode;
+            $dis->description   = 'A demo valid coupon code!';
+            $dis->amount        = 0.01;
 
             return $dis;
         }
@@ -240,9 +240,9 @@
                 throw new Exception('Unknown discount code.'); 
             }
 
-            $dis->Code          = $discountCode;
-            $dis->Description   = 'A demo valid coupon code!';
-            $dis->Amount        = 0.01;
+            $dis->code          = $discountCode;
+            $dis->description   = 'A demo valid coupon code!';
+            $dis->amount        = 0.01;
 
             return $dis;
         }
@@ -254,9 +254,9 @@
             */
 
             $dis = new P4M\Model\Discount();
-            $dis->Code           = 'valid_code';
-            $dis->Description    = 'A demo valid coupon code!';
-            $dis->Amount         = 0.01;
+            $dis->code           = 'valid_code';
+            $dis->description    = 'A demo valid coupon code!';
+            $dis->amount         = 0.01;
 
             $disArray = [ $dis ];
 
@@ -264,7 +264,7 @@
          }
 
 
-         public function completePurchase ( $p4m_cart, $transactionId, $transationTypeCode, $authCode ) {
+         public function completePurchase ( $purchase_data ) {
              /*
                 some logic to update the db to show that the purchase has happened and clear the cart 
             */
